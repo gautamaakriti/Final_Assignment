@@ -3,7 +3,7 @@
 
 # ## Importing Libraries
 
-# In[118]:
+# In[1]:
 
 
 import pandas as pd
@@ -17,15 +17,15 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 # ## Load Datasets
 
-# #### Define the path to the dataset and load it into a pandas DataFrame
+# #### Define the path to the dataset and load it into a pandas DataFrame:
 
-# In[119]:
+# In[2]:
 
 
 path = "/Users/aakritigautam/Downloads/climate_change_impact_on_agriculture_2024.csv"
 
 
-# In[120]:
+# In[3]:
 
 
 climate_impact_df = pd.read_csv(path)
@@ -37,7 +37,7 @@ climate_impact_df
 # #### Display column names:
 # This provides an overview of the available data and helps understand the structure of the dataset.
 
-# In[121]:
+# In[4]:
 
 
 climate_impact_df.columns
@@ -48,16 +48,16 @@ climate_impact_df.columns
 # #### Display DataFrame information:
 # The '.info()' method provides details about the dataset, such as the number of entries, column data types, and non-null values.
 
-# In[122]:
+# In[5]:
 
 
 climate_impact_df.info()
 
 
-# #### Describe the data 
+# #### Describe the data :
 # This gives a quick look at key statistics (mean, standard deviation, min, max, quartiles) of numeric columns.
 
-# In[123]:
+# In[6]:
 
 
 climate_impact_df.describe()
@@ -68,7 +68,7 @@ climate_impact_df.describe()
 # #### Find any missing values:
 # Replace common placeholders for missing data (like '-', 'N/A', 'na') with NaN, then check for any null values.
 
-# In[124]:
+# In[7]:
 
 
 climate_impact_df.replace(['', ' ', '-', 'N/A', 'na', '?'], np.nan, inplace=True)
@@ -81,7 +81,7 @@ climate_impact_df.isnull().sum()
 
 # ##### 1. How does climate change impact farming and food production?
 
-# In[125]:
+# In[8]:
 
 
 plt.figure(figsize= (14, 8))
@@ -133,9 +133,9 @@ plt.show()
 
 # ##### 2. Which crops are producing the most or less over time during climate change?
 
-# #### Plotting crop yields by Crop Type
+# #### Plotting crop yields by Crop Type:
 
-# In[126]:
+# In[9]:
 
 
 plt.figure(figsize=(10, 6))
@@ -152,7 +152,7 @@ plt.show()
 
 # ##### 3. How will food production impact the future?
 
-# In[127]:
+# In[10]:
 
 
 X = climate_impact_df[["Average_Temperature_C", "Total_Precipitation_mm", "CO2_Emissions_MT"]]
@@ -160,24 +160,24 @@ y = climate_impact_df["Crop_Yield_MT_per_HA"]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 
-# #### Building the linear regression model
+# #### Building the linear regression model:
 
-# In[128]:
+# In[11]:
 
 
 model = LinearRegression()
 model.fit(X_train, y_train)
 
 
-# In[129]:
+# In[12]:
 
 
 y_pred = model.predict(X_test)
 
 
-# #### Evaluating the model
+# #### Evaluating the model:
 
-# In[130]:
+# In[13]:
 
 
 mse = mean_squared_error(y_test, y_pred)
@@ -186,9 +186,9 @@ print(f'Mean Squared Error: {mse}')
 print(f'R-squared: {r2}')
 
 
-# #### Predicting crop yields for future years
+# #### Predicting crop yields for future years:
 
-# In[131]:
+# In[14]:
 
 
 future_data = pd.DataFrame({
@@ -205,45 +205,74 @@ print(f'Predicted Future Yields: {future_yields}')
 
 # ##### 4. What environmental changes increased or decreased crop production, and what adaptations had the most impact?
 
-# #### Correlation analysis of environmental factors
+# #### Correlation analysis of environmental factors:
 
-# In[132]:
+# In[15]:
 
 
-corr = climate_impact_df[["Average_Temperature_C", "Total_Precipitation_mm", "CO2_Emissions_MT", "Crop_Yield_MT_per_HA"]].corr()
+corr = climate_impact_df[['Average_Temperature_C', 'Total_Precipitation_mm', 'CO2_Emissions_MT', 'Crop_Yield_MT_per_HA']].corr()
 corr
 
 
 # The above table presents the correlation coefficients between four variables: Average Temperature, Total Precipitation, CO2 Emissions, and Crop Yield. Average Temperature has a moderate positive correlation (0.26) with Crop Yield, indicating that higher temperatures might be associated with slightly increased yields. Total Precipitation, however, shows a very weak correlation (0.03) with Crop Yield, suggesting little direct impact. CO2 Emissions exhibit a weak negative correlation (-0.09) with Crop Yield, implying that higher emissions could slightly reduce yields. The correlations between the other variables, such as Average Temperature with Precipitation and CO2 Emissions, are near zero, indicating minimal relationships between them.
 
-# #### Grouping the data by adaptation strategy and calculating the average crop yield
+# #### Grouping the data by adaptation strategy and calculating the average crop yield:
 
-# In[133]:
-
-
-adaptation_yields = climate_impact_df.groupby("Adaptation_Strategies")["Crop_Yield_MT_per_HA"].mean().reset_index()
-adaptation_yields
+# In[16]:
 
 
-# #### Plotting the impact of adaptation strategies on crop yields
+adaptation_yields = climate_impact_df.groupby('Adaptation_Strategies')['Crop_Yield_MT_per_HA'].mean().reset_index()
 
-# In[134]:
+
+# #### Plotting the impact of adaptation strategies on crop yields:
+
+# In[17]:
 
 
 plt.figure(figsize=(10, 5))
-sns.barplot(x= "Adaptation_Strategies", y= "Crop_Yield_MT_per_HA", data= adaptation_yields)
-plt.title("Impact of Adaptation Strategies on Crop Yields", fontsize= 16, fontweight= "bold", y= 1.05)
-plt.xlabel("Adaptation Strategy")
-plt.ylabel("Average Crop Yield (MT/HA)"")
+sns.barplot(x='Adaptation_Strategies', y='Crop_Yield_MT_per_HA', data=adaptation_yields)
+plt.title('Impact of Adaptation Strategies on Crop Yields', fontsize= 16, fontweight="bold", y=1.05)
+plt.xlabel('Adaptation Strategy')
+plt.ylabel('Average Crop Yield (MT/HA)')
 plt.show()
 
 
 # The above bar graph shows the impact of different adaptation strategies on crop yields, all of which average around 2.0 MT/HA. Crop Rotation slightly outperforms other methods, suggesting its benefits in improving soil health and productivity. Drought-resistant Crops, Organic Farming, and Water Management also show competitive yields, demonstrating their effectiveness in enhancing crop resilience and sustainability. Even the "No Adaptation" strategy produces similar yields, serving as a baseline for comparison. Overall, Crop Rotation offers a slight advantage in boosting crop yield.
 
-# In[ ]:
+# #### Saving Predictions to a File:
+
+# In[18]:
 
 
+with open("predictions.txt", "w") as file:
+    for value in future_yields:
+        file.write(f"{value}\n")
 
+
+# #### Saving Evaluation Metrics:
+
+# In[19]:
+
+
+with open("model_evaluation.txt", "w") as file:
+    file.write(f"Mean Squared Error: {mse}\n")
+    file.write(f"R-squared: {r2}\n")
+
+
+# #### Saving Processed Data:
+
+# In[20]:
+
+
+climate_impact_df.to_csv("cleaned_climate_impact_data.csv", index=False)
+
+
+# #### Saving Visualizations:
+
+# In[23]:
+
+
+plt.savefig("impact_of_climate_change_on_agriculture.png", dpi=300)
 
 
 # In[ ]:
