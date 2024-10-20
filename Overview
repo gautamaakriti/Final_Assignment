@@ -1,0 +1,20 @@
+Climate Change Impact on Agriculture: Crop Yield Prediction
+
+Overview
+This project explores the impact of climate change on agricultural productivity in Nepal. By analyzing historical climate data (1990-2024), the project uses data manipulation, visualization, and machine learning to predict future crop yields and understand how environmental factors like temperature, precipitation, and CO2 emissions affect production.
+
+Key Components
+Data: Climate and crop yield data from 1990 to 2024
+Tools: Python (Pandas, Matplotlib, Seaborn), Linear Regression
+Goals:
+Analyze trends in temperature, rainfall, CO2 emissions, and crop yields.
+Predict future crop yields using a machine learning model.
+Explore adaptation strategies to mitigate the effects of climate change.
+Process
+Data Manipulation: Cleaned and prepared climate and crop yield data.
+Visualization: Created line graphs and box plots to illustrate trends and distributions.
+Modeling: Used linear regression to predict future yields and evaluate the model’s performance using MSE and R².
+Analysis: Studied correlations between environmental factors and crop yields and assessed the impact of adaptation strategies like crop rotation.
+Results
+Findings: Rising temperatures and erratic rainfall moderately affect crop yields, with future predictions indicating a slight decline in production if current trends continue.
+Recommendations: Farmers should consider adaptation strategies, such as mulching and crop rotation, to mitigate the effects of climate change.
